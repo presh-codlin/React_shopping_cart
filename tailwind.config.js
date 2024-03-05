@@ -9,24 +9,16 @@ export default {
       colors: {
         transparent: 'transparent',
         current: 'currentColor',
-        'white': '#ffffff',
-        'red': {
-          100: '#ff7a85',
-          300: '#ff525d',
-          500: '#ff3d54',
+        'white': {
+          50: '#ffffff',
+          100: '#f4f4f7',
+          150: '#fefefe',
         },
         'orange': {
-          300: '#ff8f70',
+          300: '#ff8000',
         },
         'blue': {
-          50: '#c8c8cb',
-          100: '#ebebeb',
-          150: '#657682',
-          300: '#4b5862',
-          600: '#1f3f5b',
-          700: '#3f4164',
-          800: '#2c2d3f',
-          900: '#25252d',
+          500: '#203040',
         },
       },
       fontWeight: {
@@ -38,8 +30,6 @@ export default {
       },
       screens: {
         sm: {'max': '849px'},
-        md: {'min': '321px', 'max': '380px'},
-        xl: {'min': '381px', 'max': '849px'},
         'laptop': {'min': '850px'},
         'desktop': {'min': '1050px'},
       }
