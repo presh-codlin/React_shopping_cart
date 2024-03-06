@@ -25,7 +25,7 @@ function App() {
               <ProductList data={productData}/>
             </div>
           </main>
-          <aside className="bg-white-100 sm:fixed sm:top-[75px] w-[250px] sm:right-[0px] h-[100%] laptop:mr-0 flex laptop:w-[20%] flex-col items-center">
+          <aside className="bg-white-100 sm:fixed sm:top-[75px] w-[250px] sm:right-[-500px] h-[100%] laptop:mr-0 flex laptop:w-[20%] flex-col items-center">
             Cart is empty
           </aside>
         </div>
