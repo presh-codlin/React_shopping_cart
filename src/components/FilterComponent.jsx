@@ -59,9 +59,10 @@ function FilterComponent({ productData, size, onSizeFilterChange, category, onCa
   const handleSortFilter = (selectedSort) => {
     setSortOpen(false);
     const sortedProducts = [...productSort].slice().sort((a, b) => (
-      selectedSort === "Highest" ?  ((a.price < b.price) ? 1 : -1) :
-      selectedSort === "Lowest" ?  ((a.price > b.price) ? 1 : -1) :
-      ((a.price < b.price) ? 1 : -1) 
+      selectedSort === "Highest" ? ((a.price < b.price) ? 1 : -1) :
+      selectedSort === "Lowest" ? ((a.price > b.price) ? 1 : -1) :
+      selectedSort === "Latest" ? ((a._id < b._id) ? 1 : -1) : 
+      ((a._id > b._id) ? 1 : -1)
     ));
     onSortFilterChange(sortedProducts, selectedSort);
   }
@@ -74,6 +75,12 @@ function FilterComponent({ productData, size, onSizeFilterChange, category, onCa
           <button className="text-blue-500 text-xl" onClick={()=>handleSortDropdown()}>Sort: {sort}</button>
           {sortOpen ? (
             <ul className="absolute top-[100%] left-0 bg-white-50 shadow-md border-[1px] border-white-100 z-900 px-3 py-3">
+              <li className="list-none px-[15px] py-[5px] hover:bg-[#d6d3d3] rounded-[8px] duration-[.7s] border-b-[1px] border-white-150">
+                <button className="text-blue-500 text-xl w-[100%] text-left" onClick={()=>handleSortFilter("Oldest")}>Oldest</button>
+              </li>
+              <li className="list-none px-[15px] py-[5px] hover:bg-[#d6d3d3] rounded-[8px] duration-[.7s] border-b-[1px] border-white-150">
+                <button className="text-blue-500 text-xl w-[100%] text-left" onClick={()=>handleSortFilter("Latest")}>Latest</button>
+              </li>
               <li className="list-none px-[15px] py-[5px] hover:bg-[#d6d3d3] rounded-[8px] duration-[.7s] border-b-[1px] border-white-150">
                 <button className="text-blue-500 text-xl w-[100%] text-left" onClick={()=>handleSortFilter("Highest")}>Highest</button>
               </li>
