@@ -30,3 +30,11 @@ header{
 a{
   text-decoration: none;
 }
+
+.filter-comp{
+  overflow-y: ;
+  overflow-x: scroll;
+}
+.filter-cont button{
+  width: max-content;
+}

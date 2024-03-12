@@ -30,6 +30,7 @@ export default {
       },
       screens: {
         sm: {'max': '849px'},
+        md: {'min': '500px'},
         'laptop': {'min': '850px'},
         'desktop': {'min': '1050px'},
       }
