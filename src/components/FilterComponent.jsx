@@ -69,7 +69,7 @@ function FilterComponent({ productData, size, onSizeFilterChange, category, onCa
   
   
   return (
-    <div className="w-[100%] h-[100%] flex items-center">
+    <div className="w-[100%] h-[100%] flex items-center overflow-auto">
       <div className="flex gap-5 items-center h-[100%] text-xl text-blue-500 font-medium relative">
         <div className="flex gap-2 items-center text-xl text-blue-500 font-medium relative w-[max-content]"> 
           <button className="text-blue-500 text-xl" onClick={()=>handleSortDropdown()}>Sort: {sort}</button>
