@@ -46,7 +46,7 @@ function CartComponent({ cart, onRemoveItem, onQuantityChange, onClearCart }) {
         <h6 className="w-[100%] flex justify-between items-center h-[40px] text-xl"><span>Total:</span><span>$ {price}</span></h6>
         <div className="w-[100%] flex justify-between items-center h-[40px]">
           <button onClick={()=>onClearCart()} className="text-xl laptop:text-xl text-white-50 rounded-[5px] px-[20px] py-[5px] bg-orange-300 hover:text-orange-300 hover:bg-white-50 hover:border-[1.5px] hover:border-orange-300">π</button>
-          <button className="text-xl laptop:text-xl text-white-50 w-[70%] rounded-[5px] px-[15px] py-[5px] bg-orange-300 hover:text-orange-300 hover:bg-white-50 hover:border-[1.5px] hover:border-orange-300">Checkout</button>
+          <button className="text-xl laptop:text-xl text-white-50 w-[70%] rounded-[5px] px-[15px] py-[5px] bg-orange-300 hover:text-orange-300 hover:bg-white-50 hover:border-[1.5px] hover:border-orange-300">Proceed</button>
         </div>
       </div>
     </div>
