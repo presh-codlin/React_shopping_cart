@@ -15,7 +15,8 @@ const products = [
       "availableSizes": ["S", "L", "XL", "XXL"],
       "category": "Gowns",
       "color": ["Grey", "White"],
-      "price": 29.9
+      "price": 29.9,
+      "quantity": 1
     },
     {
       "_id": "dress2",
@@ -25,7 +26,8 @@ const products = [
       "availableSizes": ["S", "M", "L"],
       "category": "T-shirt",
       "color": ["Green"],
-      "price": 18.9
+      "price": 18.9,
+      "quantity": 1
     },
     {
       "_id": "dress3",
@@ -35,7 +37,8 @@ const products = [
       "availableSizes": ["S", "M", "L"],
       "category": "Hoddies",
       "color": ["Brown", "Red"],
-      "price": 14.9
+      "price": 14.9,
+      "quantity": 1
     },
     {
       "_id": "dress4",
@@ -45,7 +48,8 @@ const products = [
       "availableSizes": ["XL"],
       "category": "Gowns",
       "color": ["Black", "White"],
-      "price": 25.9
+      "price": 25.9,
+      "quantity": 1
     },
     {
       "_id": "dress5",
@@ -55,7 +59,8 @@ const products = [
       "availableSizes": ["S", "L", "XL"],
       "category": "Shoes",
       "color": ["Yellow"],
-      "price": 10.9
+      "price": 10.9,
+      "quantity": 1
     },
     {
       "_id": "dress6",
@@ -65,7 +70,8 @@ const products = [
       "availableSizes": ["XL", "XXL"],
       "category": "Bags",
       "color": ["Blue", "Red"],
-      "price": 49.9
+      "price": 49.9,
+      "quantity": 1
     }
   ]
   
