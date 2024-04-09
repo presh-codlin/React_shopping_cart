@@ -1,11 +1,10 @@
 import {React, useState, useEffect} from 'react';
 
-function CartComponent({ cart, onRemoveItem, onQuantityChange, onClearCart }) {
-  
+function CartComponent({ cart, onRemoveItem, onQuantityChange, onClearCart, onProceed }) {
   const [price, setPrice] = useState(0);
-  
+ 
   const handlePrice = () => {
-    let totalPrice = cart.reduce((a,c) => a + c.price * c.quantity, 0);
+    let totalPrice = cart.reduce((a,c) => a + c.price * c.quantity, 0).toFixed(2);
     setPrice(totalPrice);
   }
   useEffect(()=>{
@@ -33,7 +32,7 @@ function CartComponent({ cart, onRemoveItem, onQuantityChange, onClearCart }) {
                     </div>
                   </div>
                   <div className="w-[100%] h-[35px] flex justify-between items-center">
-                    <div className="flex items-center w-[50%] text-[16px] laptop:text-[1rem] text-blue-500 font-medium">$ {cItem.price * cItem.quantity}</div>
+                    <div className="flex items-center w-[50%] text-[16px] laptop:text-[1rem] text-blue-500 font-medium">$ {(cItem.price * cItem.quantity).toFixed(2)}</div>
                     <button onClick={() => onRemoveItem(cItem._id)} className="flex items-center justify-center w-[50%] text-sm laptop:text-sm text-white-50 rounded-[5px] px-[20px] py-[5px] bg-orange-300 hover:text-orange-300 hover:bg-white-50 hover:border-[1.5px] hover:border-orange-300">Remove</button>
                   </div>
                 </div>
@@ -46,7 +45,7 @@ function CartComponent({ cart, onRemoveItem, onQuantityChange, onClearCart }) {
         <h6 className="w-[100%] flex justify-between items-center h-[40px] text-xl"><span>Total:</span><span>$ {price}</span></h6>
         <div className="w-[100%] flex justify-between items-center h-[40px]">
           <button onClick={()=>onClearCart()} className="text-xl laptop:text-xl text-white-50 rounded-[5px] px-[20px] py-[5px] bg-orange-300 hover:text-orange-300 hover:bg-white-50 hover:border-[1.5px] hover:border-orange-300">π</button>
-          <button className="text-xl laptop:text-xl text-white-50 w-[70%] rounded-[5px] px-[15px] py-[5px] bg-orange-300 hover:text-orange-300 hover:bg-white-50 hover:border-[1.5px] hover:border-orange-300">Proceed</button>
+          <button onClick={()=>onProceed()} className="text-xl laptop:text-xl text-white-50 w-[70%] rounded-[5px] px-[15px] py-[5px] bg-orange-300 hover:text-orange-300 hover:bg-white-50 hover:border-[1.5px] hover:border-orange-300">Proceed</button>
         </div>
       </div>
     </div>

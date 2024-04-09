@@ -3,6 +3,7 @@ import ProductList from './components/ProductList.jsx';
 import FilterComponent from './components/FilterComponent.jsx';
 import products from './products.js';
 import CartComponent from './components/CartComponent.jsx';
+import Checkout from './components/Checkout.jsx';
 
 function App() {
   const localStore = localStorage.getItem("cartItem") ? JSON.parse(localStorage.getItem("cartItem")) : [];
@@ -13,7 +14,11 @@ function App() {
   const [sort, setSort] = useState("");
   const [cart, setCart] = useState(localStore);
   const [showCart, setShowCart] = useState(false);
-  const [warning, setWarning] = useState(false);
+  const [showCheckout, setShowCheckout] = useState(false);
+  const [warning, setWarning] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errMessage, setErrMessage] = useState("");
+  
  
  const handleSortFilterChange = (sortedProducts, selectedSort) => {
    if(selectedSort === ""){
@@ -40,7 +45,7 @@ function App() {
       setProductData(filteredCategoryProducts);
     }
     setCategory(selectedCategory);
- }
+  }
 
  const handleColorFilterChange = (filteredColorProducts, selectedColor) => {
    if(selectedColor === "All"){
@@ -49,7 +54,7 @@ function App() {
       setProductData(filteredColorProducts);
     }
     setColor(selectedColor);
- }
+  }
  
  const handleAddTocart = (item) => {
    console.log(item);
@@ -61,28 +66,30 @@ function App() {
    })
    if(isInCart){
      setWarning(true);
+     setErrMessage("Product already exist in cart, visit cart page to increase quantity");
      setTimeout(()=>{
-       setWarning(false);
+       setWarning("");
      }, 2000);
      return;
    }
    setCart([...cart, item]);
    localStorage.setItem("cartItem", JSON.stringify([...cart, item]));
- }
+  }
  
  const handleRemoveItem = (id) => {
    const newCart = cart.filter((item) => item._id !== id);
    setCart(newCart);
    localStorage.setItem("cartItem", JSON.stringify(newCart));
- }
+  }
  
- const handleClearCart = () =>{
+  const handleClearCart = () =>{
    const empty = [];
    setCart(empty);
+   setShowCheckout(false);
    localStorage.setItem("cartItem", JSON.stringify(empty));
- }
+  }
  
- const handleQuantityChange = (item, d) => {
+  const handleQuantityChange = (item, d) => {
    let ind = -1;
     cart.forEach((data, index) => {
       if(data._id === item._id){
@@ -95,11 +102,23 @@ function App() {
       tempArr[ind].quantity = 1;
     }
     setCart([...tempArr]);
- }
+  }
  
- const toggleCart = () => {
+  const toggleCart = () => {
    setShowCart(!showCart);
- }
+  }
+  
+  const handleProceed = ()=>{
+   setShowCheckout(true);
+  }
+  
+ const  createOrderNotification = (order)=>{
+      setWarning(false);
+      setSuccessMessage(`Hey ${order.name} your order was created successfully`);
+      setTimeout(()=>{
+        setWarning("");
+      }, 2000);
+  }
 
   return (
     <div className="w-[100vw] min-h-[99vh] flex flex-wrap">
@@ -123,19 +142,26 @@ function App() {
               }
             </div>
           </main>
-          <aside className={showCart ? "bg-white-100 sm:fixed sm:top-[0px] w-[250px] sm:left-[0px] h-[100%] laptop:mr-0 flex laptop:w-[25%] flex-col items-center p-3 gap-3 overflow-auto sm:border-[1px]" : "bg-white-100 sm:fixed sm:top-[0px] w-[250px] sm:left-[-500px] h-[100%] laptop:mr-0 flex laptop:w-[25%] flex-col items-center p-3 gap-3 overflow-auto"}>
-            {
-              cart.length === 0 ? <div className="w-[100%] h-[100%] flex items-center justify-center text-white-[#797979] text-xl">Your cart is Empty</div> : <CartComponent cart={cart} onRemoveItem={handleRemoveItem} onQuantityChange={handleQuantityChange} onClearCart={handleClearCart}/>
-            }
-            {
-              warning && <div className="text-[16px] w-[max-centent] py-[10px] px-[12px] z-[900] rounded-tl-[4px] rounded-bl-[4px] bg-red-500 text-white-50 border-[1px] border-white-150 flex items-center justify-center fixed top-[50px] right-0">Warning: Product already exist in Cart</div>
-            }
+          <aside className={showCart ? "bg-white-100 sm:fixed sm:top-[0px] w-[250px] sm:left-[0px] h-[100%] laptop:mr-0 flex laptop:w-[25%] flex-col items-center p-3 gap-[20px] overflow-auto sm:border-[1px]" : "bg-white-100 sm:fixed sm:top-[0px] w-[250px] sm:left-[-500px] h-[100%] laptop:mr-0 flex laptop:w-[25%] flex-col items-center p-3 gap-3 overflow-auto"}>
+            <div className="w-[100%]"> 
+              {
+                cart.length === 0 ? <div className="w-[100%] h-[100%] flex items-center justify-center text-white-[#797979] text-xl">Your cart is Empty</div> : <CartComponent cart={cart} onRemoveItem={handleRemoveItem} onQuantityChange={handleQuantityChange} onClearCart={handleClearCart} onProceed={handleProceed}/>
+              }
+            </div>
+            <div className="w-[100%]">
+              {
+                showCheckout ? <Checkout cartItems={cart} createOrderNotification={createOrderNotification}/> : ""
+              }
+            </div>
           </aside>
         </div>
       </div>
       <footer className="text-white-50 text-xl bg-blue-500 flex w-[100vw] justify-center items-center laptop:p-5 py-3 mb-0">
         All Rights Reserved
       </footer>
+      {
+        warning === "" ? <div className="text-[16px] w-[max-centent] py-[10px] px-[12px] z-[900] rounded-tl-[4px] rounded-bl-[4px] bg-red-500 text-white-50 border-[1px] border-white-150 flex items-center justify-center fixed top-[50px] right-0 hidden"></div> : warning ? <div className="text-[16px] w-[max-centent] py-[10px] px-[12px] z-[900] rounded-tl-[4px] rounded-bl-[4px] bg-red-500 text-white-50 border-[1px] border-white-150 flex items-center justify-center fixed top-[0px] laptop:top-[50px] right-0">Warning: {errMessage}</div>  : <div className="text-[16px] w-[max-centent] py-[10px] px-[12px] z-[900] rounded-tl-[4px] rounded-bl-[4px] bg-green-500 text-white-50 border-[1px] border-white-150 flex items-center justify-center fixed top-[0px] laptop:top-[50px] right-0">Success: {successMessage}</div>
+      }
     </div>
   )
 }
