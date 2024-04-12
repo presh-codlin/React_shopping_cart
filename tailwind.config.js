@@ -33,6 +33,7 @@ export default {
         md: {'min': '500px'},
         'laptop': {'min': '850px'},
         'desktop': {'min': '1050px'},
+        lg: {'min': '1980px'},
       }
     },
   },

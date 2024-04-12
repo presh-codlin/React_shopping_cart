@@ -1,4 +1,5 @@
 import {React, useState} from 'react';
+import Fade from 'react-reveal/Fade';
 
 function Checkout({cartItems, createOrderNotification}){
   const [formField, setFormField] = useState({ email: "", address: "", name: "" });
@@ -64,26 +65,28 @@ function Checkout({cartItems, createOrderNotification}){
   return (
     <div className="w-[100%] flex flex-col items-center pt-[20px]">
       <form onSubmit={createOrder} className="w-[100%]">
-        <ul className="w-[100%] flex flex-col items-center gap-3">
-          <li className="list-none w-[100%]">
-            <label className="text-xl text-blue-500 font-medium">Name:</label>
-            <input type="text" placeholder="Name" value={formField.name} onChange={(e) => setFormField({...formField, name: e.target.value})} className={formErr.name === "Name is required" ? "w-[100%] outline-none px-3 py-[8px] text-[16px] laptop:text-xl text-blue-500 border-[2px] border-red-600" : "w-[100%] outline-none px-3 py-[8px] text-[16px] laptop:text-xl text-blue-500 border-none"}/>
-            <p className="text-xl text-red-500 font-normal pt-2">{formErr.name}</p>
-          </li>
-          <li className="list-none w-[100%]">
-            <label className="text-xl text-blue-500 font-medium pl-[3px]">Email:</label>
-            <input type="text" placeholder="Email" value={formField.email} onChange={(e) => setFormField({...formField, email: e.target.value})} className={formErr.email !== "" ? "w-[100%] outline-none px-3 py-[8px] text-[16px] laptop:text-xl text-blue-500 border-[2px] border-red-600" : "w-[100%] outline-none px-3 py-[8px] text-[16px] laptop:text-xl text-blue-500 border-none"}/>
-            <p className="text-xl text-red-500 font-normal pt-2">{formErr.email}</p>
-          </li>
-          <li className="list-none w-[100%]">
-            <label className="text-xl text-blue-500 font-medium pl-[3px]">Address:</label>
-            <input type="text" placeholder="Address" value={formField.address} onChange={(e) => setFormField({...formField, address: e.target.value})} className={formErr.address === "Address is required" ? "w-[100%] outline-none px-3 py-[8px] text-[16px] laptop:text-xl text-blue-500 border-[2px] border-red-600" : "w-[100%] outline-none px-3 py-[8px] text-[16px] laptop:text-xl text-blue-500 border-none"}/>
-            <p className="text-xl text-red-500 font-normal pt-2">{formErr.address}</p>
-          </li>
-          <li className="list-none w-[100%] pt-2">
-            <button type="submit" className="text-xl laptop:text-xl text-white-50 w-[100%] rounded-[5px] px-[15px] py-[5px] bg-orange-300 hover:text-orange-300 hover:bg-white-50 hover:border-[1.5px] hover:border-orange-300">Checkout</button>
-          </li>
-        </ul>
+        <Fade right cascade>
+          <ul className="w-[100%] flex flex-col items-center gap-3">
+            <li className="list-none w-[100%]">
+              <label className="text-xl text-blue-500 font-medium">Name:</label>
+              <input type="text" placeholder="Name" value={formField.name} onChange={(e) => setFormField({...formField, name: e.target.value})} className={formErr.name === "Name is required" ? "w-[100%] outline-none px-3 py-[8px] text-[16px] laptop:text-xl text-blue-500 border-[2px] border-red-600" : "w-[100%] outline-none px-3 py-[8px] text-[16px] laptop:text-xl text-blue-500 border-none"}/>
+              <p className="text-xl text-red-500 font-normal pt-2">{formErr.name}</p>
+            </li>
+            <li className="list-none w-[100%]">
+              <label className="text-xl text-blue-500 font-medium pl-[3px]">Email:</label>
+              <input type="text" placeholder="Email" value={formField.email} onChange={(e) => setFormField({...formField, email: e.target.value})} className={formErr.email !== "" ? "w-[100%] outline-none px-3 py-[8px] text-[16px] laptop:text-xl text-blue-500 border-[2px] border-red-600" : "w-[100%] outline-none px-3 py-[8px] text-[16px] laptop:text-xl text-blue-500 border-none"}/>
+              <p className="text-xl text-red-500 font-normal pt-2">{formErr.email}</p>
+            </li>
+            <li className="list-none w-[100%]">
+              <label className="text-xl text-blue-500 font-medium pl-[3px]">Address:</label>
+              <input type="text" placeholder="Address" value={formField.address} onChange={(e) => setFormField({...formField, address: e.target.value})} className={formErr.address === "Address is required" ? "w-[100%] outline-none px-3 py-[8px] text-[16px] laptop:text-xl text-blue-500 border-[2px] border-red-600" : "w-[100%] outline-none px-3 py-[8px] text-[16px] laptop:text-xl text-blue-500 border-none"}/>
+              <p className="text-xl text-red-500 font-normal pt-2">{formErr.address}</p>
+            </li>
+            <li className="list-none w-[100%] pt-2">
+              <button type="submit" className="text-xl laptop:text-xl text-white-50 w-[100%] rounded-[5px] px-[15px] py-[5px] bg-orange-300 hover:text-orange-300 hover:bg-white-50 hover:border-[1.5px] hover:border-orange-300">Checkout</button>
+            </li>
+          </ul>
+        </Fade>
       </form>
     </div>
   )

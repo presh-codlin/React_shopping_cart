@@ -121,28 +121,28 @@ function App() {
   }
 
   return (
-    <div className="w-[100vw] min-h-[99vh] flex flex-wrap">
-      <header className="text-white-50 bg-blue-500 flex w-[100vw] justify-center items-center p-3 laptop:p-5">
+    <div className="w-[100vw] h-[100vh] flex flex-wrap">
+      <header className="text-white-50 bg-blue-500 flex w-[100vw] justify-center items-center p-3 laptop:p-5 h-[10vh] md:h-[5vh]">
         <div className="w-[100%] laptop:max-w-[980px] desktop:max-w-[1150px] flex items-center justify-between h-[100%] text-xl">
-          <a href="/">Premium Wears</a>
+          <a href="/" className="text-xl">Premium Wears</a>
           <span onClick={()=>toggleCart()} className={showCart ? "px-[18px] py-[5px] text-orange-300 text-xl laptop:hidden" : "px-[18px] py-[5px] text-white-50 text-xl laptop:hidden"}>Cart</span>
         </div>
       </header>
-      <div className="w-[100%] h-[100vh] overflow-auto flex flex-col items-center bg-white-50 p-5">
-        <div className="laptop:max-w-[980px] desktop:max-w-[1150px] w-[100%] flex flex-wrap h-[100vh]">
-          <nav className="bg-white-100 laptop:ml-0 w-[100%] h-[90px] flex flex-col justify-center md:flex-row laptop:flex-row md:items-center laptop:row-gap-5 laptop:justify-between mb-5 px-5 pt-3 pb-0 md:pb-3">
-            <h4 className="text-left text-blue-500 text-xl laptop:text-2xl font-bold w-[100%] max-w-[300px]">Filter Product By:</h4>
-            <FilterComponent count={productData.length} size={size} productData={products} productSort={productData} onSizeFilterChange={handleSizeFilterChange} category={category} onCategoryFilterChange={handleCategoryFilterChange} color={color} onColorFilterChange={handleColorFilterChange} sort={sort} onSortFilterChange={handleSortFilterChange} />
-          </nav>
-          <main className="h-100 flex w-100 laptop:w-[75%] flex-col items-center">
+      <div className="w-[100%] h-[80vh] md:h-[90vh] flex-col items-center bg-white-50 p-5 overflow-auto md:overflow-visible">
+        <nav className="bg-white-100 laptop:ml-0 w-[100%] flex flex-col justify-center md:flex-row laptop:flex-row md:items-center laptop:row-gap-5 laptop:justify-between mb-5 px-5 pt-3 pb-0 md:pb-3">
+          <h4 className="text-left text-blue-500 text-xl laptop:text-2xl font-bold w-[100%] max-w-[300px]">Filter Product By:</h4>
+          <FilterComponent count={productData.length} size={size} productData={products} productSort={productData} onSizeFilterChange={handleSizeFilterChange} category={category} onCategoryFilterChange={handleCategoryFilterChange} color={color} onColorFilterChange={handleColorFilterChange} sort={sort} onSortFilterChange={handleSortFilterChange} />
+        </nav>
+        <div className="laptop:max-w-[980px] desktop:max-w-[1150px] w-[100%] h-[100%] md:h-[95%] flex justify-between items-start">
+          <main className="h-[100%] flex w-100 laptop:w-[74%] desktop:w-[76%] flex-col items-center pb-2">
             <h1 className="mb-5 text-left text-xl">{productData.length } {productData.length === 1 ? "Product" : "Products"} Available</h1>
-            <div className="w-[100%] flex flex-col items-center mb-5">
+            <div className="w-[100%] md:h-[90%] flex flex-col items-center mb-5 md:overflow-auto">
               {
                 productData.length === 0 ? <div>Product Not Available at the moment</div> : <ProductList data={productData} onAddToCart={handleAddTocart}/>
               }
             </div>
           </main>
-          <aside className={showCart ? "bg-white-100 sm:fixed sm:top-[0px] w-[250px] sm:left-[0px] h-[100%] laptop:mr-0 flex laptop:w-[25%] flex-col items-center p-3 gap-[20px] overflow-auto sm:border-[1px]" : "bg-white-100 sm:fixed sm:top-[0px] w-[250px] sm:left-[-500px] h-[100%] laptop:mr-0 flex laptop:w-[25%] flex-col items-center p-3 gap-3 overflow-auto"}>
+          <aside className={showCart ? "bg-white-100 sm:fixed sm:top-[0px] w-[70%] h-[95%] sm:left-[0px] laptop:mr-0 flex laptop:w-[25%] desktop:w-[22%] laptop:max-w-[30%] flex-col items-center p-4 gap-[20px] overflow-auto sm:border-[1px]" : "bg-white-100 sm:fixed sm:top-[0px] w-[70%] h-[95%] sm:left-[-500px] laptop:mr-0 flex laptop:w-[25%] desktop:w-[22%] laptop:max-w-[30%] flex-col items-center p-4 gap-3 overflow-auto"}>
             <div className="w-[100%]"> 
               {
                 cart.length === 0 ? <div className="w-[100%] h-[100%] flex items-center justify-center text-white-[#797979] text-xl">Your cart is Empty</div> : <CartComponent cart={cart} onRemoveItem={handleRemoveItem} onQuantityChange={handleQuantityChange} onClearCart={handleClearCart} onProceed={handleProceed}/>
@@ -156,7 +156,7 @@ function App() {
           </aside>
         </div>
       </div>
-      <footer className="text-white-50 text-xl bg-blue-500 flex w-[100vw] justify-center items-center laptop:p-5 py-3 mb-0">
+      <footer className="text-white-50 text-xl bg-blue-500 flex w-[100vw] h-[10vh] md:h-[5vh] justify-center items-center laptop:p-5 py-3 mb-0 mt-2 md:mt-0">
         All Rights Reserved
       </footer>
       {
