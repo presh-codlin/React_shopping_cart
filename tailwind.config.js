@@ -13,6 +13,7 @@ export default {
           50: '#ffffff',
           100: '#f4f4f7',
           150: '#fefefe',
+          700: '#000000a5',
         },
         'orange': {
           300: '#ff8000',
