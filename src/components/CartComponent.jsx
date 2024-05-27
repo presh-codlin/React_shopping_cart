@@ -1,30 +1,13 @@
 import {React, useState, useEffect} from 'react';
 import Fade from 'react-reveal/Fade';
 
-function CartComponent({ cart, onRemoveItem, size, setSize, onQuantityChange, onClearCart, onProceed }) {
+function CartComponent({ cart, onRemoveItem, onQuantityChange, onClearCart, onProceed }) {
   const [price, setPrice] = useState(0);
   const [sizeErr,setSizeErr] = useState("");
  
   const handlePrice = () => {
     let totalPrice = cart.reduce((a,c) => a + c.price * c.quantity, 0).toFixed(2);
     setPrice(totalPrice);
-  }
-  
-  const handleSizeChange = (e)=>{
-    setSize(e.target.value);
-    if (size !== "M"){
-      if(size !== "S"){
-        if(size !== "XL"){
-          if(size !== "XXL"){
-            if(size !== "L"){
-              setSizeErr("Unkown size: use a Valid size Letters eg: M,X,S,XL,XXL,L");
-            }
-          }
-        }
-      }
-    }else{
-      setSizeErr("");
-    }
   }
   
   useEffect(()=>{
@@ -57,7 +40,7 @@ function CartComponent({ cart, onRemoveItem, size, setSize, onQuantityChange, on
                       <div className="flex items-center w-[50%] text-xl laptop:text-[1rem] text-blue-500 font-medium">$ {(cItem.price * cItem.quantity).toFixed(2)}</div>
                       <div className="flex gap-2 items-center text-xl text-blue-500 font-medium"> 
                         <label for="size">Size:</label>
-                        <input type="text" name="size" value={size} className={sizeErr === "" ? "text-blue-500 w-[25px] py-1 text-xl text-center outline-none" : "text-blue-500 py-1 w-[25px] text-xl border[1px] border-red-700 text-center outline-none"} onChange={(e)=> handleSizeChange(e)}/>
+                        <input type="text" name="size" value={cItem.selectedSize} className={sizeErr === "" ? "text-blue-500 w-[25px] py-1 text-xl text-center outline-none" : "text-blue-500 py-1 w-[25px] text-xl border[1px] border-red-700 text-center outline-none"}/>
                       </div>
                     </div>
                   </div>

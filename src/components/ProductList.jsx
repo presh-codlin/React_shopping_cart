@@ -3,7 +3,7 @@ import Fade from 'react-reveal/Fade';
 import Modal from 'react-modal';
 import Zoom from 'react-reveal/Zoom';
 
-function ProductList({ data, size, setSize, onAddToCart, onQuantityChange }){
+function ProductList({ data, size, setSize, onAddToCart }){
   const [currentItem, setCurrentItem] = useState(null);
   const [sizeErr,setSizeErr] = useState("");
  
@@ -12,20 +12,10 @@ function ProductList({ data, size, setSize, onAddToCart, onQuantityChange }){
   }
  
   const handleSizeChange = (e)=>{
-    setSize(e.target.value);
-    if (size !== "M"){
-      if(size !== "S"){
-        if(size !== "XL"){
-          if(size !== "XXL"){
-            if(size !== "L"){
-              setSizeErr("Unkown size: use a Valid size Letters eg: M,X,S,XL,XXL,L");
-            }
-          }
-        }
-      }
-    }else{
-      setSizeErr("");
-    }
+    setCurrentItem({...currentItem, selectedSize: e.target.value});
+  }
+  const handleQtyChange = (e) =>{
+    setCurrentItem({...currentItem, quantity: e.target.value});
   }
   
   const closeModal = ()=>{
@@ -33,12 +23,13 @@ function ProductList({ data, size, setSize, onAddToCart, onQuantityChange }){
   }
   
   const handleAdd = ()=>{
-    if(size === ""){
-      setSizeErr("Enter a size value");
+    if(['M', 'S', 'XXL', 'XL', 'L'].includes(currentItem.selectedSize)){
+      onAddToCart(currentItem);
+      closeModal();
+    }else{
+      setSizeErr("Please enter a valid size ('M', 'S', 'L', 'XL', 'XXL')");
       return;
     }
-    onAddToCart(currentItem);
-    closeModal();
   }
   
   return(
@@ -66,32 +57,32 @@ function ProductList({ data, size, setSize, onAddToCart, onQuantityChange }){
       </Fade>
       {
         currentItem && (
-          <Modal isOpen={true} onRequestClose={closeModal}>
+          <Modal isOpen={true} onRequestClose={closeModal} className="fixed flex items-center w-[90%] h-[95%] md:h-[80%] md:w-[60%] laptop:w-[90%] laptop:h-[500px] bg-white-50 justify-center p-4 md:px-5 md:pt-5 md:pb-3 laptop:p-4"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
             <span onClick={closeModal} className="fa fa-times absolute top-0 right-0 bg-blue-500 px-3 py-2 rounded-bl-[5px] text-white-50"></span>
             <Zoom>
-              <div className="w-[100%] h-[100%] px-0 laptop:px-4 pt-5 pb-6 flex flex-col laptop:flex-row justify-between items-center">
-                <img className="w-[100%] laptop:w-[40%] mb-4 laptop:mb-0" src={currentItem.image} alt="productImg preview"/>
-                <div className="w-[100%] laptop:w-[50%] text-left flex flex-col justify-between gpb-2 laptop:gap-4">
-                  <h2 className="text-xl line-clamp-1 laptop:text-3xl font-bold text-blue-500">{currentItem.title}</h2>
-                  <h3 className="text-xl laptop:text-2xl font-bold text-orange-300">{currentItem.price}</h3>
-                  <p className="text-xl text-blue-500 line-clamp-2">{currentItem.description}</p>
-                  <div>
-                    <div className="w-[100%] flex items-center">
-                      <button onClick={()=>onQuantityChange(currentItem, -1)} className="w-[28%] text-[16px] h-[23px] text-blue-500 text-center border-[1px] border-[#797979] rounded-[4px] flex items-center justify-center">-</button>
-                      <span className="w-[44%] text-[16px] text-blue-500 text-center flex items-center justify-center">{currentItem.quantity}</span>
-                      <button onClick={()=>onQuantityChange(currentItem, +1)} className="w-[28%] text-[16px] h-[23px] text-blue-500 text-center border-[1px] border-[#797979] rounded-[4px] flex items-center justify-center">+</button>
+              <div className="w-[100%] h-[100%] px-0 laptop:px-4 laptop:py-5 pb-6 flex flex-col laptop:flex-row justify-between items-center">
+                <img className="w-[100%] h-[70%] laptop:h-[100%] laptop:w-[40%] mb-3 laptop:mb-0" src={currentItem.image} alt="productImg preview"/>
+                <div className="w-[100%] h-[280px] laptop:w-[50%] text-left flex flex-col justify-between gpb-2 laptop:gap-4 laptop:pr-2">
+                  <h2 className="text-xl line-clamp-1 laptop:text-3xl font-bold text-blue-500 mb-1">{currentItem.title}</h2>
+                  <p className="text-sm text-blue-500 line-clamp-2 mb-2">{currentItem.description}</p>
+                  <div className="w-[100%] laptop:w-[60%] flex flex-wrap gap-4 items-center justify-between mb-3">
+                    <div className="flex items-center w-[max-content] laptop:hidden text-xl text-orange-300 font-medium">$ {(currentItem.price * currentItem.quantity).toFixed(2)}</div>
+                    <div className="w-[max-content] flex gap-3 items-center text-xl text-blue-500 font-medium"> 
+                      <label for="qty">Qty:</label>
+                      <input type="text" name="qty" value={currentItem.quantity} className="text-blue-500 text-xl w-[30px] text-center outline-none" onChange={(e)=> handleQtyChange(e)}/>
                     </div>
-                    <div className="flex gap-2 items-center text-xl text-blue-500 font-medium w-[max-content]"> 
+                    <div className="w-[max-content] flex gap-3 items-center text-xl text-blue-500 font-medium"> 
                       <label for="size">Size:</label>
-                      <input type="text" name="size" value={size} className={sizeErr === "" ? "text-blue-500 text-xl w-[30px] text-center outline-none" : "text-blue-500 text-xl w-[30px] border-[1px] border-red-700 text-center outline-none"} onChange={(e)=> handleSizeChange(e)}/>
+                      <input type="text" name="size" value={currentItem.selectedSize} className={sizeErr === "" ? "text-blue-500 text-xl w-[30px] text-center outline-none" : "text-blue-500 text-xl w-[30px] border-[1px] border-red-700 text-center outline-none"} onChange={(e)=> handleSizeChange(e)}/>
                     </div>
                   </div>
-                  <div>
-                    <div className="flex items-center w-[50%] text-[16px] laptop:text-[1rem] text-blue-500 font-medium">$ {(currentItem.price * currentItem.quantity).toFixed(2)}</div>
-                    <button onClick={() => handleAdd()} className="text-sm laptop:text-sm text-white-50 rounded-[5px] px-5 py-3 laptop:px-4 laptop:py-2 bg-orange-300 hover:text-orange-300 hover:bg-white-50 hover:border-[1.5px] hover:border-orange-300">Details</button>
+                  <div className="flex w-[100%] flex-wrap items-center justify-between gap-3">
+                    <div className="flex items-center hidden laptop:block w-[30%] text-xl text-orange-300 font-medium">$ {(currentItem.price * currentItem.quantity).toFixed(2)}</div>
+                    <button onClick={() => handleAdd()} className="w-[100%] laptop:w-[60%] text-sm laptop:text-sm text-white-50 rounded-[5px] px-5 py-3 laptop:px-4 laptop:py-2 bg-orange-300 hover:text-orange-300 hover:bg-white-50 hover:border-[1.5px] hover:border-orange-300">Details</button>
                   </div>
                   {
-                    sizeErr === "" ? "" : <p className="text-red-700 text-sm text-left mt-2">{sizeErr}</p>
+                    sizeErr === "" ? "" : <p className="text-red-700 text-sm text-left my-2">{sizeErr}</p>
                   }
                 </div>
               </div>

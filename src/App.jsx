@@ -102,7 +102,13 @@ function App() {
       }
     });
     const tempArr = cart;
-    tempArr[ind].quantity += d;
+    if(d === -1){
+      tempArr[ind].quantity--;
+    }
+    if(d === +1){
+      tempArr[ind].quantity++;
+    }
+    
     if(tempArr[ind].quantity === 0){
       tempArr[ind].quantity = 1;
     }
@@ -149,7 +155,7 @@ function App() {
                 <h1 className="mb-5 text-left text-xl">{productData.length } {productData.length === 1 ? "Product" : "Products"} Available</h1>
                 <div className="w-[100%] md:h-[90%] flex flex-col items-center mb-5 md:overflow-auto">
                   {
-                   productData.length === 0 ? <div>Product Not Available at the moment</div> : <ProductList data={productData} size={sizeSelected} setSize={setSizeSelected} onQuantityChange={handleQuantityChange} onAddToCart={handleAddTocart}/>
+                   productData.length === 0 ? <div>Product Not Available at the moment</div> : <ProductList data={productData} size={sizeSelected} setSize={setSizeSelected} onAddToCart={handleAddTocart}/>
                   }
                 </div>
               </main>
