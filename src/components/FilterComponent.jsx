@@ -69,12 +69,12 @@ function FilterComponent({ productData, size, onSizeFilterChange, category, onCa
   
   
   return (
-    <div className="w-[100%] h-[100%] flex items-center overflow-auto">
-      <div className="flex gap-5 items-center h-[100%] text-xl text-blue-500 font-medium relative">
+    <div className="w-[100%] h-[100%]">
+      <div className="flex flex-wrap gap-5 items-center justify-between laptop:justify-evenly h-[max-content] text-xl text-blue-500 font-medium relative">
         <div className="flex gap-2 items-center text-xl text-blue-500 font-medium relative w-[max-content]"> 
           <button className="text-blue-500 text-xl" onClick={()=>handleSortDropdown()}>Sort: {sort}</button>
           {sortOpen ? (
-            <ul className="absolute top-[100%] left-0 bg-white-50 shadow-md border-[1px] border-white-100 z-900 px-3 py-3">
+            <ul className="absolute top-[100%] left-0 bg-white-50 shadow-md border-[1px] border-white-100 z-[90] px-3 py-3">
               <li className="list-none px-[15px] py-[5px] hover:bg-[#d6d3d3] rounded-[8px] duration-[.7s] border-b-[1px] border-white-150">
                 <button className="text-blue-500 text-xl w-[100%] text-left" onClick={()=>handleSortFilter("Oldest")}>Oldest</button>
               </li>
@@ -93,7 +93,7 @@ function FilterComponent({ productData, size, onSizeFilterChange, category, onCa
         <div className="flex gap-2 items-center text-xl text-blue-500 font-medium relative w-[max-content]"> 
           <button className="text-blue-500 text-xl" onClick={()=>handleCategoryDropdown()}>Categories: {category}</button>
           {categoryOpen ? (
-            <ul className="absolute top-[100%] left-0 bg-white-50 shadow-md border-[1px] border-white-100 z-900 px-3 py-3">
+            <ul className="absolute top-[100%] left-0 bg-white-50 shadow-md border-[1px] border-white-100 z-[90] px-3 py-3">
               <li className="list-none px-[15px] py-[5px] hover:bg-[#d6d3d3] rounded-[8px] duration-[.7s] border-b-[1px] border-white-150">
                 <button className="text-blue-500 text-xl w-[100%] text-left" onClick={()=>handleCategoryFilter("All")}>All</button>
               </li>
@@ -118,7 +118,7 @@ function FilterComponent({ productData, size, onSizeFilterChange, category, onCa
         <div className="flex gap-2 items-center text-xl text-blue-500 font-medium relative w-[max-content]"> 
           <button className="text-blue-500 text-xl" onClick={()=>handleSizeDropdown()}>Sizes: {size}</button>
           {sizeOpen ? (
-            <ul className="absolute top-[100%] left-0 bg-white-50 shadow-md border-[1px] border-white-100 z-900 p-3">
+            <ul className="absolute top-[100%] left-0 bg-white-50 shadow-md border-[1px] border-white-100 z-[90] p-3">
               <li className="list-none px-[15px] py-[5px] hover:bg-[#d6d3d3] rounded-[8px] duration-[.7s]">
                 <button className="text-blue-500 text-xl w-[100%] text-left" onClick={()=>handleSizeFilter("All")}>All</button>
               </li>
@@ -143,7 +143,7 @@ function FilterComponent({ productData, size, onSizeFilterChange, category, onCa
         <div className="flex gap-2 items-center text-xl text-blue-500 font-medium relative w-[max-content]"> 
           <button className="text-blue-500 text-xl" onClick={()=>handleColorDropdown()}>Color: {color}</button>
           {colorOpen ? (
-            <ul className="absolute top-[100%] right-0 bg-white-50 shadow-md border-[1px] border-white-100 z-900 p-3">
+            <ul className="absolute top-[100%] right-0 bg-white-50 shadow-md border-[1px] border-white-100 z-[90] p-3">
               <li className="list-none px-[15px] py-[5px] hover:bg-[#d6d3d3] rounded-[8px] duration-[.7s]">
                 <button className="text-blue-500 text-xl w-[100%] text-left" onClick={()=>handlecColorFilter("All")}>All</button>
               </li>

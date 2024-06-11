@@ -1,7 +1,7 @@
 import {React, useState} from 'react';
 import Fade from 'react-reveal/Fade';
 
-function Checkout({cartItems, createOrderNotification}){
+function Checkout({cartItems, createOrderNotification, isLoggedIn, setErrMessage, setWarning }){
   const [formField, setFormField] = useState({ email: "", address: "", name: "" });
   const [formErr, setFormErr] = useState({name: "", email: "", address: ""});
   
@@ -52,14 +52,22 @@ function Checkout({cartItems, createOrderNotification}){
         setFormErr({...formErr, name: "", email: "", address: ""});
       }
     }
-    
-    const order = {
-      email: formField.email,
-      name: formField.name,
-      address: formField.address,
-      cartItems: cartItems,
+    if(isLoggedIn === true){
+      const order = {
+        email: formField.email,
+        name: formField.name,
+        address: formField.address,
+        cartItems: cartItems,
+      }
+      createOrderNotification(order);
+    }else{
+      setWarning(true);
+      setErrMessage("Please Login to Carry out this action");
+      setTimeout(()=>{
+        setWarning("");
+      }, 5000);
+      return;
     }
-    createOrderNotification(order);
   }
   
   return (

@@ -1,18 +1,37 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import Fade from 'react-reveal/Fade';
 import Modal from 'react-modal';
 import Zoom from 'react-reveal/Zoom';
 
-function ProductList({ data, size, setSize, onAddToCart }){
+function ProductList({ data, size, setSize, onAddToCart, isLoggedIn, setErrMessage, setWarning }){
   const [currentItem, setCurrentItem] = useState(null);
-  const [sizeErr,setSizeErr] = useState("");
+  const [inputValue, setInputValue] = useState("");
+  const [showButton, setShowButton] = useState(false);
+  const [sizeErr, setSizeErr] = useState("Please enter a size value to proceed, only [M, S, L, XL or XXL] are valid");
  
   const openModal = (item) => {
-    setCurrentItem({... item});
+    if(isLoggedIn === true){
+      setCurrentItem({... item});
+    }else{
+      setWarning(true);
+      setErrMessage("Please Login to Carry out this action");
+      setTimeout(()=>{
+        setWarning("");
+      }, 5000);
+      return;
+    }
   }
  
   const handleSizeChange = (e)=>{
-    setCurrentItem({...currentItem, selectedSize: e.target.value});
+    const value = e.target.value;
+    const newValue = value.toUpperCase().replace(/[^MSXL]|X{3,}/g, '');
+    setCurrentItem({...currentItem, selectedSize: newValue});
+    setShowButton(['M', 'S', 'XXL', 'XL', 'L'].includes(newValue));
+    if(['M', 'S', 'XXL', 'XL', 'L'].includes(newValue)){
+      setSizeErr("");
+    }else{
+      setSizeErr("Please enter a size value to proceed, only [M, S, L, XL or XXL] are valid");
+    }
   }
   const handleQtyChange = (e) =>{
     setCurrentItem({...currentItem, quantity: e.target.value});
@@ -23,13 +42,11 @@ function ProductList({ data, size, setSize, onAddToCart }){
   }
   
   const handleAdd = ()=>{
-    if(['M', 'S', 'XXL', 'XL', 'L'].includes(currentItem.selectedSize)){
+    //if(['M', 'S', 'XXL', 'XL', 'L'].includes(currentItem.selectedSize)){
       onAddToCart(currentItem);
       closeModal();
-    }else{
-      setSizeErr("Please enter a valid size ('M', 'S', 'L', 'XL', 'XXL')");
-      return;
-    }
+      setShowButton(false);
+      setSizeErr("Please enter a size value to proceed, only [M, S, L, XL or XXL] are valid");
   }
   
   return(
@@ -57,33 +74,35 @@ function ProductList({ data, size, setSize, onAddToCart }){
       </Fade>
       {
         currentItem && (
-          <Modal isOpen={true} onRequestClose={closeModal} className="fixed flex items-center w-[90%] h-[95%] md:h-[80%] md:w-[60%] laptop:w-[90%] laptop:h-[500px] bg-white-50 justify-center p-4 md:px-5 md:pt-5 md:pb-3 laptop:p-4"
+          <Modal isOpen={true} onRequestClose={closeModal} className="fixed flex items-center w-[90%] h-[98%] max-h-[max] md:h-[80%] md:w-[60%] laptop:w-[90%] laptop:h-[500px] laptop:max-h-[500px] bg-white-50 justify-center z-[9000] p-4 md:px-5 md:pt-5 md:pb-3 laptop:p-4"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <span onClick={closeModal} className="fa fa-times absolute top-0 right-0 bg-blue-500 px-3 py-2 rounded-bl-[5px] text-white-50"></span>
+            <span onClick={closeModal} className="fa fa-times absolute top-0 right-0 bg-blue-500 px-3 py-2 rounded-bl-[5px] z-[10] text-[16px] laptop:text-xl text-white-50"></span>
             <Zoom>
               <div className="w-[100%] h-[100%] px-0 laptop:px-4 laptop:py-5 pb-6 flex flex-col laptop:flex-row justify-between items-center">
                 <img className="w-[100%] h-[70%] laptop:h-[100%] laptop:w-[40%] mb-3 laptop:mb-0" src={currentItem.image} alt="productImg preview"/>
                 <div className="w-[100%] h-[280px] laptop:w-[50%] text-left flex flex-col justify-between gpb-2 laptop:gap-4 laptop:pr-2">
-                  <h2 className="text-xl line-clamp-1 laptop:text-3xl font-bold text-blue-500 mb-1">{currentItem.title}</h2>
+                  <h2 className="text-[16px] line-clamp-1 laptop:text-3xl font-bold text-blue-500 mb-1">{currentItem.title}</h2>
                   <p className="text-sm text-blue-500 line-clamp-2 mb-2">{currentItem.description}</p>
                   <div className="w-[100%] laptop:w-[60%] flex flex-wrap gap-4 items-center justify-between mb-3">
-                    <div className="flex items-center w-[max-content] laptop:hidden text-xl text-orange-300 font-medium">$ {(currentItem.price * currentItem.quantity).toFixed(2)}</div>
-                    <div className="w-[max-content] flex gap-3 items-center text-xl text-blue-500 font-medium"> 
+                    <div className="flex items-center w-[max-content] laptop:hidden text-[16px] text-orange-300 font-medium">$ {(currentItem.price * currentItem.quantity).toFixed(2)}</div>
+                    <div className="w-[max-content] flex gap-3 items-center text-[16px] text-blue-500 font-medium"> 
                       <label for="qty">Qty:</label>
-                      <input type="text" name="qty" value={currentItem.quantity} className="text-blue-500 text-xl w-[30px] text-center outline-none" onChange={(e)=> handleQtyChange(e)}/>
+                      <input type="text" name="qty" value={currentItem.quantity} className="text-blue-500 text-[16px] w-[30px] text-center outline-none" onChange={(e)=> handleQtyChange(e)}/>
                     </div>
-                    <div className="w-[max-content] flex gap-3 items-center text-xl text-blue-500 font-medium"> 
+                    <div className="w-[max-content] flex gap-3 items-center text-[16px] text-blue-500 font-medium"> 
                       <label for="size">Size:</label>
-                      <input type="text" name="size" value={currentItem.selectedSize} className={sizeErr === "" ? "text-blue-500 text-xl w-[30px] text-center outline-none" : "text-blue-500 text-xl w-[30px] border-[1px] border-red-700 text-center outline-none"} onChange={(e)=> handleSizeChange(e)}/>
+                      <input type="text" name="size" value={currentItem.selectedSize} className={sizeErr === "" ? "text-blue-500 text-[16px] w-[30px] text-center outline-none" : "text-blue-500 text-xl w-[30px] border-[1px] border-red-700 text-center outline-none"} onChange={(e)=> handleSizeChange(e)}/>
                     </div>
                   </div>
                   <div className="flex w-[100%] flex-wrap items-center justify-between gap-3">
-                    <div className="flex items-center hidden laptop:block w-[30%] text-xl text-orange-300 font-medium">$ {(currentItem.price * currentItem.quantity).toFixed(2)}</div>
-                    <button onClick={() => handleAdd()} className="w-[100%] laptop:w-[60%] text-sm laptop:text-sm text-white-50 rounded-[5px] px-5 py-3 laptop:px-4 laptop:py-2 bg-orange-300 hover:text-orange-300 hover:bg-white-50 hover:border-[1.5px] hover:border-orange-300">Details</button>
+                    <div className="flex items-center hidden laptop:block w-[30%] text-[16px] text-orange-300 font-medium">$ {(currentItem.price * currentItem.quantity).toFixed(2)}</div>
+                    {
+                      showButton && <button onClick={() => handleAdd()} className="w-[100%] laptop:w-[60%] text-sm laptop:text-sm text-white-50 rounded-[5px] px-5 py-2 laptop:px-4 laptop:py-2 bg-orange-300 hover:text-orange-300 hover:bg-white-50 hover:border-[1.5px] hover:border-orange-300">Add to Cart</button>
+                    }
+                    {
+                      sizeErr && <p className="text-red-700 text-[16px] laptop:text-xl">{sizeErr}</p>
+                    }
                   </div>
-                  {
-                    sizeErr === "" ? "" : <p className="text-red-700 text-sm text-left my-2">{sizeErr}</p>
-                  }
                 </div>
               </div>
             </Zoom>

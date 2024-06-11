@@ -1,7 +1,7 @@
 import {React, useState, useEffect} from 'react';
 import Fade from 'react-reveal/Fade';
 
-function CartComponent({ cart, onRemoveItem, onQuantityChange, onClearCart, onProceed }) {
+function CartComponent({ cart, onRemoveItem, onQuantityChange, onClearCart, onProceed, }) {
   const [price, setPrice] = useState(0);
   const [sizeErr,setSizeErr] = useState("");
  
