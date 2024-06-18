@@ -91,6 +91,37 @@ function FilterComponent({ productData, size, onSizeFilterChange, category, onCa
           ) : null}
         </div>
         <div className="flex gap-2 items-center text-xl text-blue-500 font-medium relative w-[max-content]"> 
+          <button className="text-blue-500 text-xl" onClick={()=>handleColorDropdown()}>Color: {color}</button>
+          {colorOpen ? (
+            <ul className="absolute top-[100%] right-0 bg-white-50 shadow-md border-[1px] border-white-100 z-[90] p-3">
+              <li className="list-none px-[15px] py-[5px] hover:bg-[#d6d3d3] rounded-[8px] duration-[.7s]">
+                <button className="text-blue-500 text-xl w-[100%] text-left" onClick={()=>handlecColorFilter("All")}>All</button>
+              </li>
+              <li className="list-none px-[15px] py-[5px] hover:bg-[#d6d3d3] rounded-[8px] duration-[.7s]">
+                <button className="text-blue-500 text-xl w-[100%] text-left" onClick={()=>handlecColorFilter("Black")}>Black</button>
+              </li>
+              <li className="list-none px-[15px] py-[5px] hover:bg-[#d6d3d3] rounded-[8px] duration-[.7s]">
+                <button className="text-blue-500 text-xl w-[100%] text-left" onClick={()=>handlecColorFilter("Brown")}>Brown</button>
+              </li>
+              <li className="list-none px-[15px] py-[5px] hover:bg-[#d6d3d3] rounded-[8px] duration-[.7s]">
+                <button className="text-blue-500 text-xl w-[100%] text-left" onClick={()=>handlecColorFilter("White")}>White</button>
+              </li>
+              <li className="list-none px-[15px] py-[5px] hover:bg-[#d6d3d3] rounded-[8px] duration-[.7s]">
+                <button className="text-blue-500 text-xl w-[100%] text-left" onClick={()=>handlecColorFilter("Red")}>Red</button>
+              </li>
+              <li className="list-none px-[15px] py-[5px] hover:bg-[#d6d3d3] rounded-[8px] duration-[.7s]">
+                <button className="text-blue-500 text-xl w-[100%] text-left" onClick={()=>handlecColorFilter("Blue")}>Blue</button>
+              </li>
+              <li className="list-none px-[15px] py-[5px] hover:bg-[#d6d3d3] rounded-[8px] duration-[.7s]">
+                <button className="text-blue-500 text-xl w-[100%] text-left" onClick={()=>handlecColorFilter("Grey")}>Grey</button>
+              </li>
+              <li className="list-none px-[15px] py-[5px] hover:bg-[#d6d3d3] rounded-[8px] duration-[.7s]">
+                <button className="text-blue-500 text-xl w-[100%] text-left" onClick={()=>handlecColorFilter("Yellow")}>Yellow</button>
+              </li>
+            </ul>
+          ) : null}
+        </div>
+        <div className="flex gap-2 items-center text-xl text-blue-500 font-medium relative w-[max-content]"> 
           <button className="text-blue-500 text-xl" onClick={()=>handleCategoryDropdown()}>Categories: {category}</button>
           {categoryOpen ? (
             <ul className="absolute top-[100%] left-0 bg-white-50 shadow-md border-[1px] border-white-100 z-[90] px-3 py-3">
@@ -140,38 +171,6 @@ function FilterComponent({ productData, size, onSizeFilterChange, category, onCa
             </ul>
           ) : null}
         </div>
-        <div className="flex gap-2 items-center text-xl text-blue-500 font-medium relative w-[max-content]"> 
-          <button className="text-blue-500 text-xl" onClick={()=>handleColorDropdown()}>Color: {color}</button>
-          {colorOpen ? (
-            <ul className="absolute top-[100%] right-0 bg-white-50 shadow-md border-[1px] border-white-100 z-[90] p-3">
-              <li className="list-none px-[15px] py-[5px] hover:bg-[#d6d3d3] rounded-[8px] duration-[.7s]">
-                <button className="text-blue-500 text-xl w-[100%] text-left" onClick={()=>handlecColorFilter("All")}>All</button>
-              </li>
-              <li className="list-none px-[15px] py-[5px] hover:bg-[#d6d3d3] rounded-[8px] duration-[.7s]">
-                <button className="text-blue-500 text-xl w-[100%] text-left" onClick={()=>handlecColorFilter("Black")}>Black</button>
-              </li>
-              <li className="list-none px-[15px] py-[5px] hover:bg-[#d6d3d3] rounded-[8px] duration-[.7s]">
-                <button className="text-blue-500 text-xl w-[100%] text-left" onClick={()=>handlecColorFilter("Brown")}>Brown</button>
-              </li>
-              <li className="list-none px-[15px] py-[5px] hover:bg-[#d6d3d3] rounded-[8px] duration-[.7s]">
-                <button className="text-blue-500 text-xl w-[100%] text-left" onClick={()=>handlecColorFilter("White")}>White</button>
-              </li>
-              <li className="list-none px-[15px] py-[5px] hover:bg-[#d6d3d3] rounded-[8px] duration-[.7s]">
-                <button className="text-blue-500 text-xl w-[100%] text-left" onClick={()=>handlecColorFilter("Red")}>Red</button>
-              </li>
-              <li className="list-none px-[15px] py-[5px] hover:bg-[#d6d3d3] rounded-[8px] duration-[.7s]">
-                <button className="text-blue-500 text-xl w-[100%] text-left" onClick={()=>handlecColorFilter("Blue")}>Blue</button>
-              </li>
-              <li className="list-none px-[15px] py-[5px] hover:bg-[#d6d3d3] rounded-[8px] duration-[.7s]">
-                <button className="text-blue-500 text-xl w-[100%] text-left" onClick={()=>handlecColorFilter("Grey")}>Grey</button>
-              </li>
-              <li className="list-none px-[15px] py-[5px] hover:bg-[#d6d3d3] rounded-[8px] duration-[.7s]">
-                <button className="text-blue-500 text-xl w-[100%] text-left" onClick={()=>handlecColorFilter("Yellow")}>Yellow</button>
-              </li>
-            </ul>
-          ) : null}
-        </div>
-        
       </div>
     </div>
   )

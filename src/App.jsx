@@ -144,15 +144,16 @@ function App() {
 
   return (
     <div className="w-[100vw] h-[100vh] flex flex-wrap justify-center">
-      <header className="text-white-50 bg-blue-500 flex w-[100vw] justify-center items-center laptop:p-5 h-[10vh] md:h-[5vh]">
+      <header className="text-white-50 bg-blue-500 flex w-[100vw] justify-center items-center p-4 laptop:p-5 h-[10vh] md:h-[5vh]">
         <div className="relative w-[100%] laptop:max-w-[980px] desktop:max-w-[1150px] flex items-center justify-between h-[100%] text-xl">
           <a href="/" className="text-xl">Premium Wears</a>
-          <div className="w-[max-content] h-[100%] flex gap-1 items-center">
+          <div className="w-[max-content] h-[100%] flex gap-1 items-center justify-between">
             <span onClick={()=> setShowLogin(true)} className={isLoggedIn ? "hidden" : "fa fa-user px-[18px] py-[5px] text-white-50 text-xl laptop:text-xl"}></span>
             {
               isLoggedIn ? (
                <div className="flex items-center justify-between">
-                  <span onClick={()=>toggleCart()} className={showCart ? "fa fa-shopping-cart px-[18px] py-[5px] text-orange-300 text-[16px]text-xl:text-xl laptop:hidden" : "fa fa-shopping-cart px-[18px] py-[5px] text-white-50 text-[16px] laptop:text-xl laptop:hidden"}></span>
+                  <span onClick={()=>toggleCart()} className={showCart ? "fa fa-shopping-cart hover:text-orange-300 px-[18px] py-[5px] text-[16px]text-xl:text-xl laptop:hidden" : "fa fa-shopping-cart px-[18px] py-[5px] text-white-50 text-[16px] laptop:text-xl laptop:hidden"}></span>
+                  <span onClick={()=>setOpenOrderHistory(true)} className="fa fa-user-tie text-white-50 px-[18px] py-[5px] hover:text-orange-300 text-[16px] laptop:text-xl"></span>
                   <div>
                     <div onClick={()=> setShowLogout(!showLogout)} className="relative rounded-[50%] bg-orange-300 flex items-center justify-center w-[30px] h-[30px] text-white-50 text-[16px] py-2 pt-3 font-bold">Y</div>
                     <div className={showLogout ? "flex flex-col z-[90] items-center gap-3 w-[max-content] px-5 py-3 bg-white-50 absolute top-[130%] right-[18px] shadow-[0px_0px_10px_rgba(0,0,0,0.2)]" : "hidden"}>
@@ -163,7 +164,6 @@ function App() {
                       <p onClick={()=> setIsLoggedIn(false)} className="text-[16px] text-blue-500 font-bold">LOGOUT</p>
                     </div>
                   </div> 
-                  <span onClick={()=>setOpenOrderHistory(true)} className="fa fa-user-tie px-[18px] py-[5px] text-white-50 text-[16px] laptop:text-xl"></span>
                </div>
               ) : ""
             }
@@ -174,7 +174,7 @@ function App() {
         openOrderHistory ? <OrderHistory/> : (
           <div className="w-[100%] h-[80vh] md:h-[90vh] flex-col items-center justify-center bg-white-50 p-5 overflow-auto md:overflow-visible">
             <nav className="bg-white-100 laptop:ml-0 w-[100%] flex flex-col justify-center items-between md:flex-row laptop:flex-row md:items-center laptop:row-gap-5 laptop:justify-between mb-5 px-5 pt-3 pb-5 md:pb-3">
-              <h4 className="text-left text-blue-500 text-xl laptop:text-2xl font-bold mb-4 laptop:mb-0 w-[100%] max-w-[300px]">Filter Product By:</h4>
+              <h4 className="text-left text-blue-500 text-xl laptop:text-2xl font-bold mb-5 laptop:mb-0 w-[100%] max-w-[300px]">Filter Product By:</h4>
               <FilterComponent count={productData.length} size={size} productData={products} productSort={productData} onSizeFilterChange={handleSizeFilterChange} category={category} onCategoryFilterChange={handleCategoryFilterChange} color={color} onColorFilterChange={handleColorFilterChange} sort={sort} onSortFilterChange={handleSortFilterChange} />
             </nav>
             <div className="laptop:max-w-[980px] desktop:max-w-[1150px] w-[100%] h-[100%] md:h-[95%] flex justify-between items-start">
@@ -186,7 +186,7 @@ function App() {
                   }
                 </div>
               </main>
-              <aside className={showCart ? "bg-white-700 laptop:bg-white-100 sm:fixed sm:top-[0px] w-[100%] h-[100%] sm:left-[0px] laptop:mr-0 flex laptop:w-[25%] desktop:w-[22%] laptop:max-w-[30%] flex-col items-center" : "bg-white-700 laptop:bg-white-100 sm:fixed sm:top-[0px] w-[90%] h-[100%] laptop:h-[96%] sm:left-[-110%] laptop:mr-0 flex laptop:w-[25%] desktop:w-[22%] laptop:max-w-[30%] flex-col items-center"}>
+              <aside className={showCart ? "bg-white-700 laptop:bg-white-100 sm:fixed sm:top-[0px] w-[100%] h-[100%] sm:left-[0px] laptop:mr-0 flex laptop:w-[25%] desktop:w-[22%] laptop:max-w-[30%] flex-col items-center z-[900]" : "bg-white-700 laptop:bg-white-100 sm:fixed sm:top-[0px] w-[90%] h-[100%] laptop:h-[100%] sm:left-[-110%] laptop:mr-0 flex laptop:w-[25%] desktop:w-[22%] laptop:max-w-[30%] z-[900] flex-col items-center"}>
                 <i className="fa fa-times absolute right-4 top-4 laptop:hidden text-orange-300 text-2xl" onClick={()=> setShowCart(false) }></i>
                 <div className={showCart ? "bg-white-100 sm:fixed sm:top-[0px] w-[80%] h-[100%] sm:left-[0px] laptop:mr-0 flex laptop:w-[100%] flex-col items-center p-4 gap-[20px] overflow-auto sm:border-[1px]" : "bg-white-100 sm:fixed sm:top-[0px] w-[80%] h-[100%] sm:left-[-110%] laptop:mr-0 flex laptop:w-[100%] flex-col items-center p-4 gap-3 overflow-auto"}> 
                   <div className="w-[100%]">
@@ -227,8 +227,8 @@ function App() {
         <div className="w-full h-full z-[90000] bg-white-700 text-white-50 flex items-center justify-center fixed top-[0px] left-0">
           <Zoom>
             <div className="w-[300px] h-[max-content] bg-white-50 pb-2 rounded-bl-[4px] rounded-br-[4px] flex flex-col items-center">
-              <div className="bg-green-500 w-[100%] px-3 h-[50px] flex items-center justify-center text-[16px] laptop:text-xl text-white-50">Error Message</div>
-              <div className="w-[100%] px-3 py-3 text-center text-[16px] laptop:text-xl text-blue-500">{errMessage}</div>
+              <div className="bg-green-500 w-[100%] px-3 h-[50px] flex items-center justify-center text-[16px] laptop:text-xl text-white-50">Success Message</div>
+              <div className="w-[100%] px-3 py-3 text-center text-[16px] laptop:text-xl text-blue-500">{successMessage}</div>
               <button onClick={()=>setWarning("")} className="bg-green-500 rounded-3 px-3 py-2 text-center text-white-50 text-[16px]">Close</button>
             </div>
           </Zoom>

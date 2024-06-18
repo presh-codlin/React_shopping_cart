@@ -52,7 +52,7 @@ function ProductList({ data, size, setSize, onAddToCart, isLoggedIn, setErrMessa
   return(
     <>
       <Fade bottom cascade>
-        <div className="w-[100%] grid grid-cols-[100%] md:grid-cols-[minmax(280px,_48%)_minmax(280px,_48%)] laptop:grid-cols-[minmax(220px,_31.5%)_minmax(220px,_31.5%),_minmax(220px,_31.5%)] desktop:grid-cols-[minmax(204px,_25%)_minmax(204px,_25%)_minmax(204px,_25%)_minmax(204px,_25%)] gap-4">
+        <div className="w-[100%] mb-3 grid grid-cols-[100%] md:grid-cols-[minmax(280px,_48%)_minmax(280px,_48%)] laptop:grid-cols-[minmax(220px,_31.5%)_minmax(220px,_31.5%),_minmax(220px,_31.5%)] desktop:grid-cols-[minmax(204px,_25%)_minmax(204px,_25%)_minmax(204px,_25%)_minmax(204px,_25%)] gap-4">
           {data.map((item) => {
             return(
               <li key={item._id} className="list-none">
@@ -75,7 +75,7 @@ function ProductList({ data, size, setSize, onAddToCart, isLoggedIn, setErrMessa
       {
         currentItem && (
           <Modal isOpen={true} onRequestClose={closeModal} className="fixed flex items-center w-[90%] h-[98%] max-h-[max] md:h-[80%] md:w-[60%] laptop:w-[90%] laptop:h-[500px] laptop:max-h-[500px] bg-white-50 justify-center z-[9000] p-4 md:px-5 md:pt-5 md:pb-3 laptop:p-4"
-        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[900]">
             <span onClick={closeModal} className="fa fa-times absolute top-0 right-0 bg-blue-500 px-3 py-2 rounded-bl-[5px] z-[10] text-[16px] laptop:text-xl text-white-50"></span>
             <Zoom>
               <div className="w-[100%] h-[100%] px-0 laptop:px-4 laptop:py-5 pb-6 flex flex-col laptop:flex-row justify-between items-center">
