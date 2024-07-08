@@ -3,6 +3,7 @@ import Fade from 'react-reveal/Fade';
 
 function CartComponent({ cart, onRemoveItem, onQuantityChange, onClearCart, onProceed, }) {
   const [price, setPrice] = useState(0);
+  const [sizeErr, setSizeErr] = useState("");
  
   const handlePrice = () => {
     let totalPrice = cart.reduce((a,c) => a + c.price * c.quantity, 0).toFixed(2);

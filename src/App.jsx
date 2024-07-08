@@ -10,7 +10,9 @@ import Zoom from 'react-reveal/Zoom';
 
 function App() {
   const localStore = localStorage.getItem("cartItem") ? JSON.parse(localStorage.getItem("cartItem")) : [];
+  const history = localStorage.getItem("historyData") ? JSON.parse(localStorage.getItem("historyData")) : [];
   const [productData, setProductData] = useState(products);
+  const [orderHistoryData, setOrderHistoryData] = useState(history);
   const [size, setSize] = useState("All");
   const [category, setCategory] = useState("All");
   const [color, setColor] = useState("All");
@@ -88,12 +90,24 @@ function App() {
    setCart(newCart);
    localStorage.setItem("cartItem", JSON.stringify(newCart));
   }
+  
+  const handleRemoveHistory = (id) => {
+   const newHistory = orderHistoryData.filter((item) => item.id !== id);
+   setCart(newHistory);
+   localStorage.setItem("cartItem", JSON.stringify(newHistory));
+  }
  
   const handleClearCart = () =>{
    const empty = [];
    setCart(empty);
    setShowCheckout(false);
    localStorage.setItem("cartItem", JSON.stringify(empty));
+  }
+  
+  const handleClearHistory = () =>{
+    const empty = [];
+    setOrderHistoryData(empty);
+    localStorage.setItem("historyData", JSON.stringify(empty));
   }
  
   const handleQuantityChange = (item, d) => {
@@ -135,6 +149,8 @@ function App() {
   }
   
  const  createOrderNotification = (order)=>{
+      setOrderHistoryData([...orderHistoryData, order]);
+      localStorage.setItem("historyData", JSON.stringify([...orderHistoryData, order]));
       setWarning(false);
       setSuccessMessage(`Hey ${order.name} your order was created successfully`);
       setTimeout(()=>{
@@ -171,7 +187,7 @@ function App() {
         </div>
       </header>
       {
-        openOrderHistory ? <OrderHistory/> : (
+        openOrderHistory ? <OrderHistory orderHistoryData={orderHistoryData} handleRemoveHistory={handleRemoveHistory} handleClearHistory={handleClearHistory}/> : (
           <div className="w-[100%] h-[80vh] md:h-[90vh] flex-col items-center justify-center bg-white-50 p-5 overflow-auto md:overflow-visible">
             <nav className="bg-white-100 laptop:ml-0 w-[100%] flex flex-col justify-center items-between md:flex-row laptop:flex-row md:items-center laptop:row-gap-5 laptop:justify-between mb-5 px-5 pt-3 pb-5 md:pb-3">
               <h4 className="text-left text-blue-500 text-xl laptop:text-2xl font-bold mb-5 laptop:mb-0 w-[100%] max-w-[300px]">Filter Product By:</h4>

@@ -54,6 +54,7 @@ function Checkout({cartItems, createOrderNotification, isLoggedIn, setErrMessage
     }
     if(isLoggedIn === true){
       const order = {
+        id: "ud8j",
         email: formField.email,
         name: formField.name,
         address: formField.address,
@@ -90,6 +91,7 @@ function Checkout({cartItems, createOrderNotification, isLoggedIn, setErrMessage
               <input type="text" placeholder="Address" value={formField.address} onChange={(e) => setFormField({...formField, address: e.target.value})} className={formErr.address === "Address is required" ? "w-[100%] outline-none px-3 py-[8px] text-[16px] laptop:text-xl text-blue-500 border-[2px] border-red-600" : "w-[100%] outline-none px-3 py-[8px] text-[16px] laptop:text-xl text-blue-500 border-none"}/>
               <p className="text-xl text-red-500 font-normal pt-2">{formErr.address}</p>
             </li>
+           
             <li className="list-none w-[100%] pt-2">
               <button type="submit" className="text-xl laptop:text-xl text-white-50 w-[100%] rounded-[5px] px-[15px] py-[5px] bg-orange-300 hover:text-orange-300 hover:bg-white-50 hover:border-[1.5px] hover:border-orange-300">Checkout</button>
             </li>
