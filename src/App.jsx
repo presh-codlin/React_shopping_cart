@@ -188,7 +188,7 @@ function App() {
       </header>
       {
         openOrderHistory ? <OrderHistory orderHistoryData={orderHistoryData} handleRemoveHistory={handleRemoveHistory} handleClearHistory={handleClearHistory}/> : (
-          <div className="w-[100%] h-[80vh] md:h-[90vh] flex-col items-center justify-center bg-white-50 p-5 overflow-auto md:overflow-visible">
+          <div className="w-[100%] h-[80vh] md:h-[90vh] flex flex-col items-center justify-center bg-white-50 p-5 overflow-auto md:overflow-visible">
             <nav className="bg-white-100 laptop:ml-0 w-[100%] flex flex-col justify-center items-between md:flex-row laptop:flex-row md:items-center laptop:row-gap-5 laptop:justify-between mb-5 px-5 pt-3 pb-5 md:pb-3">
               <h4 className="text-left text-blue-500 text-xl laptop:text-2xl font-bold mb-5 laptop:mb-0 w-[100%] max-w-[300px]">Filter Product By:</h4>
               <FilterComponent count={productData.length} size={size} productData={products} productSort={productData} onSizeFilterChange={handleSizeFilterChange} category={category} onCategoryFilterChange={handleCategoryFilterChange} color={color} onColorFilterChange={handleColorFilterChange} sort={sort} onSortFilterChange={handleSortFilterChange} />
@@ -226,7 +226,7 @@ function App() {
           showLogin ? <AuthPage setShowLogin={setShowLogin}/> : ""
         }
       </div>
-      <footer className="text-white-50 text-xl bg-blue-500 flex w-[100vw] h-[10vh] md:h-[5vh] justify-center items-center laptop:p-5 py-3 mb-0 z-[90]">
+      <footer className="text-white-50 text-xl bg-blue-500 flex w-[100vw] h-[10vh] md:h-[5vh] justify-center items-center laptop:p-5 py-3 mb-0 z-[900]">
         All Rights Reserved
       </footer>
       {
